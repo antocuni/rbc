@@ -12,17 +12,25 @@ issue.
 """
 
 def generate_funcs():
+    import types
     import numpy as np
     from rbc.omnisci_backend import numpy_funcs, numpy_ufuncs
     # try to autocompute the set of np.* functions which are supported by
-    # omnisci_backend
+    # omnisci_backend. The logic is a bit hackish but it's good enough for a
+    # quick&dirty script. A more proper solution would be to record the names
+    # of the functions inside @expose_and_overload and
+    # @overload_elementwise_*_func
     all_funcs = set()
-    for name in numpy_funcs.__dict__.keys():
-        if name.startswith('omnisci_np_'):
-            all_funcs.add(name[11:])
+    for name, value in numpy_funcs.__dict__.items():
+        if type(value) is types.FunctionType and hasattr(np, name):
+            all_funcs.add(name)
     for name, value in numpy_ufuncs.__dict__.items():
         if isinstance(value, np.ufunc):
             all_funcs.add(name)
+
+    # max is special because the official np name is 'amax', so it's not
+    # caught by the logic above
+    all_funcs.add('max')
 
     def is_omnisci_np_function(name):
         return name in all_funcs
