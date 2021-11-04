@@ -11,10 +11,31 @@ The result is saved to /tmp/array-api.md, ready to be pasted into a github
 issue.
 """
 
+def generate_funcs():
+    import numpy as np
+    from rbc.omnisci_backend import numpy_funcs, numpy_ufuncs
+    # try to autocompute the set of np.* functions which are supported by
+    # omnisci_backend
+    all_funcs = set()
+    for name in numpy_funcs.__dict__.keys():
+        if name.startswith('omnisci_np_'):
+            all_funcs.add(name[11:])
+    for name, value in numpy_ufuncs.__dict__.items():
+        if isinstance(value, np.ufunc):
+            all_funcs.add(name)
+
+    def is_omnisci_np_function(name):
+        return name in all_funcs
+
+    return is_omnisci_np_function
+
+is_omnisci_np_function = generate_funcs()
+
+
+
 class Table:
 
     HEADER = 'API function'
-    has_np = []
     is_fully_tested = []
 
     @classmethod
@@ -29,7 +50,7 @@ class Table:
         print(f'| {cls.HEADER} | Available as `np.*` | Fully tested |', file=file)
         print(f'| ------------ | ------------------- | ------------ |', file=file)
         for name in cls.names:
-            has_np = cls.as_mark(name in cls.has_np)
+            has_np = cls.as_mark(is_omnisci_np_function(name))
             is_fully_tested = cls.as_mark(name in cls.is_fully_tested)
             print(f'| ``{name}`` | {has_np} | {is_fully_tested} |', file=file)
         print(file=file)
