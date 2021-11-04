@@ -71,11 +71,11 @@ class creation_functions(Table):
 
 class data_type_functions(Table):
     from function_stubs.data_type_functions import __all__ as names
-    title = 'data_type_functions'
+    title = 'Data type functions'
 
 class elementwise_functions(Table):
     from function_stubs.elementwise_functions import __all__ as names
-    title = 'elementwise_functions'
+    title = 'Elementwise functions'
 
 class linalg(Table):
     from function_stubs.linalg import __all__ as names
@@ -83,45 +83,45 @@ class linalg(Table):
 
 class linear_algebra_functions(Table):
     from function_stubs.linear_algebra_functions import __all__ as names
-    title = 'linear_algebra_functions'
+    title = 'Linear algebra functions'
 
 class manipulation_functions(Table):
     from function_stubs.manipulation_functions import __all__ as names
-    title = 'manipulation_functions'
+    title = 'Manipulation functions'
 
 class searching_functions(Table):
     from function_stubs.searching_functions import __all__ as names
-    title = 'searching_functions'
+    title = 'Searching functions'
 
 class set_functions(Table):
     from function_stubs.set_functions import __all__ as names
-    title = 'set_functions'
+    title = 'Set functions'
 
 class sorting_functions(Table):
     from function_stubs.sorting_functions import __all__ as names
-    title = 'sorting_functions'
+    title = 'Sorting functions'
 
 class statistical_functions(Table):
     from function_stubs.statistical_functions import __all__ as names
-    title = 'statistical_functions'
+    title = 'Statistical functions'
 
 class utility_functions(Table):
     from function_stubs.utility_functions import __all__ as names
-    title = 'utility_functions'
+    title = 'Utility functions'
 
 if __name__ == '__main__':
     original_print = print
     with open('/tmp/array-api.md', 'w') as f:
         #constants().print(f)
         creation_functions().print(f)
-        ## data_type_functions().print(f)
-        ## elementwise_functions().print(f)
-        ## linalg().print(f)
-        ## linear_algebra_functions().print(f)
-        ## manipulation_functions().print(f)
-        ## searching_functions().print(f)
-        ## set_functions().print(f)
-        ## sorting_functions().print(f)
-        ## statistical_functions().print(f)
-        ## utility_functions().print(f)
-        ## array_object().print(f)
+        elementwise_functions().print(f)
+        statistical_functions().print(f)
+        data_type_functions().print(f)
+        linalg().print(f)
+        linear_algebra_functions().print(f)
+        manipulation_functions().print(f)
+        searching_functions().print(f)
+        set_functions().print(f)
+        sorting_functions().print(f)
+        utility_functions().print(f)
+        ##array_object().print(f)
